@@ -78,6 +78,8 @@ setup(
     install_requires=[
         'sc-utilities>=0.0.2',
         'sc-config>=0.0.4',
+        'pandas>=1.2.4',
+        'openpyxl>=3.0.7',
     ],
     package_data={
         'excel': ['tests/sample_config/*.yml'],
