@@ -1,6 +1,6 @@
-.. image:: https://badge.fury.io/py/sc-python-templates.svg
-    :target: https://badge.fury.io/py/sc-python-templates
-.. image:: https://img.shields.io/pypi/pyversions/sc-python-templates
+.. image:: https://badge.fury.io/py/sc-excel-splitter.svg
+    :target: https://badge.fury.io/py/sc-excel-splitter
+.. image:: https://img.shields.io/pypi/pyversions/sc-excel-splitter
     :alt: PyPI - Python Version
 
 A simple Python project sample structure
@@ -14,7 +14,7 @@ Installation
 
 It is possible to install the tool with `pip`::
 
-    pip install sc-python-templates
+    pip install sc-excel-splitter
 
 Configuration
 -------------
@@ -22,8 +22,8 @@ Configuration
 First, make sure /var/opt/sc directory exists, if not create this directory and make sure current user has the right
 to create files in this directory.
 
-You can copy `default.yml <https://github.com/Scott-Lau/sc-python-templates/blob/master/sc_templates/tests/sample_config/default.yml>`_
-to /var/opt/sc/.sc-python-templates/production.yml to initialize the production configuration.
+You can copy `default.yml <https://github.com/Scott-Lau/sc-excel-splitter/blob/master/excel/tests/sample_config/default.yml>`_
+to /var/opt/sc/.sc-excel-splitter/production.yml to initialize the production configuration.
 
 The default configuration file looks like this::
 

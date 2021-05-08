@@ -20,39 +20,4 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import logging
-
-from scutils import Singleton
-from scutils import log_init
-
-from sc_templates.utils import config
-
-
-class Runner(metaclass=Singleton):
-
-    def __init__(self):
-        pass
-
-    def run(self):
-        dev_mode = False
-        try:
-            dev_mode = config.get("dev.dev_mode")
-        except AttributeError:
-            pass
-        logging.getLogger(__name__).info('program is running in development mode: {}'.format(dev_mode))
-        return 0
-
-
-def main():
-    try:
-        log_init()
-        state = Runner().run()
-    except Exception as e:
-        logging.getLogger(__name__).exception('An error occurred.', exc_info=e)
-        return 1
-    else:
-        return state
-
-
-if __name__ == '__main__':
-    main()
+__version__ = "0.0.1"

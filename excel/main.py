@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # The MIT License (MIT)
 #
 # Copyright (c) 2021 Scott Lau
@@ -21,12 +20,39 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-# NOTE: This binary is provided for convenience.  It is nice to be able to run
-# the checks from the repository.  This is not included on the releases.  We
-# are using entry_points mechanism on the setup.py.
+import logging
 
-from sys import exit
+from scutils import Singleton
+from scutils import log_init
 
-from sc_templates.main import main
+from excel.utils import config
 
-exit(main())
+
+class Runner(metaclass=Singleton):
+
+    def __init__(self):
+        pass
+
+    def run(self):
+        dev_mode = False
+        try:
+            dev_mode = config.get("dev.dev_mode")
+        except AttributeError:
+            pass
+        logging.getLogger(__name__).info('program is running in development mode: {}'.format(dev_mode))
+        return 0
+
+
+def main():
+    try:
+        log_init()
+        state = Runner().run()
+    except Exception as e:
+        logging.getLogger(__name__).exception('An error occurred.', exc_info=e)
+        return 1
+    else:
+        return state
+
+
+if __name__ == '__main__':
+    main()

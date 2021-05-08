@@ -45,22 +45,22 @@ with open('README.rst') as fd:
     readme = fd.read()
 
 setup(
-    name='sc-python-templates',
-    version=get_version("sc_templates/__init__.py"),
-    url='https://github.com/Scott-Lau/sc-python-templates',
+    name='sc-excel-splitter',
+    version=get_version("excel/__init__.py"),
+    url='https://github.com/Scott-Lau/sc-excel-splitter',
     packages=find_packages(),
     author='Scott Lau',
     author_email='exceedego@126.com',
     license='MIT',
     platforms='POSIX',
-    description='template python project',
+    description='Excel splitter according to a specific column',
     long_description=readme,
     keywords=(
-        'python template'
+        'python excel splitter'
     ),
     entry_points={
         'console_scripts': [
-            'sc-python-templates=sc_templates.main:main',
+            'sc-excel-splitter=excel.main:main',
         ],
     },
     classifiers=[
@@ -80,7 +80,7 @@ setup(
         'sc-config>=0.0.4',
     ],
     package_data={
-        'sc_templates': ['tests/sample_config/*.yml'],
+        'excel': ['tests/sample_config/*.yml'],
     },
     include_package_data=True,
 )

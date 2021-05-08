@@ -23,14 +23,14 @@ import logging
 
 from scconfig.config import Config
 
-from sc_templates.configs.default import DEFAULT_CONFIG
+from excel.configs.default import DEFAULT_CONFIG
 
 # =========================================
 #       INSTANCES
 # --------------------------------------
 try:
     # load configurations
-    config = Config.create(project_name="sc-python-templates", defaults=DEFAULT_CONFIG)
+    config = Config.create(project_name="sc-excel-splitter", defaults=DEFAULT_CONFIG)
 except Exception as error:
     config = {}
     logging.getLogger(__name__).exception("failed to read configuration", exc_info=error)
