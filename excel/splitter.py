@@ -79,14 +79,12 @@ class Splitter(metaclass=Singleton):
                         for other_sheet in sheet_config:
                             df = pd.read_excel(source_file_path, sheet_name=other_sheet)
                             df.to_excel(writer, sheet_name=other_sheet, index=False)
-                    else:
-                        # 如果是需要拆分的Sheet
-                        logging.getLogger(__name__).info("开始处理Sheet：{}, Sheet配置为：{}".format(sheet_name, sheet_config))
-                        df = pd.read_excel(source_file_path, sheet_name=sheet_name, header=sheet_config["header"])
-                        print("df", df)
-                        column_index = sheet_config["branch_column"]
-                        column_name = df.columns[column_index]
-                        sub_df = df[df[column_name] == branch]
-                        print("sub data frame", branch, sub_df)
-                        sub_df.to_excel(writer, sheet_name=sheet_name, index=False)
+                        continue
+                    # 如果是需要拆分的Sheet
+                    logging.getLogger(__name__).info("开始处理Sheet：{}".format(sheet_name))
+                    df = pd.read_excel(source_file_path, sheet_name=sheet_name, header=sheet_config["header"])
+                    column_index = sheet_config["branch_column"]
+                    column_name = df.columns[column_index]
+                    sub_df = df[df[column_name] == branch]
+                    sub_df.to_excel(writer, sheet_name=sheet_name, index=False)
         return 0
