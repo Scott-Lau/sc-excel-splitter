@@ -26,6 +26,7 @@ from scutils import Singleton
 from scutils import log_init
 
 from excel.utils import config
+from .splitter import Splitter
 
 
 class Runner(metaclass=Singleton):
@@ -40,7 +41,8 @@ class Runner(metaclass=Singleton):
         except AttributeError:
             pass
         logging.getLogger(__name__).info('program is running in development mode: {}'.format(dev_mode))
-        return 0
+        splitter = Splitter()
+        return splitter.split()
 
 
 def main():
