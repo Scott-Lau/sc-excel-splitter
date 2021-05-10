@@ -1,18 +1,12 @@
 Changelog
 =========
 
-v0.0.3 (20210304)
+v0.0.2 (20210510)
 -----------------
 
-    - Remove redundant dependency declaration in readme
-    - Update dependency version
+    - 更新说明文件
 
-v0.0.2 (20210303)
+v0.0.1 (20210510)
 -----------------
 
-    - Package some non python files
-
-v0.0.1 (20210303)
------------------
-
-    - Initial version
+    - 初始版本
