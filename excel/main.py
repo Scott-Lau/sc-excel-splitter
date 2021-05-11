@@ -23,7 +23,6 @@
 import logging
 
 from scutils import Singleton
-from scutils import log_init
 
 from excel.utils import config
 from .splitter import Splitter
@@ -47,7 +46,6 @@ class Runner(metaclass=Singleton):
 
 def main():
     try:
-        log_init()
         state = Runner().run()
     except Exception as e:
         logging.getLogger(__name__).exception('An error occurred.', exc_info=e)
