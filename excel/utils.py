@@ -22,7 +22,6 @@
 import logging
 
 from scconfig.config import Config
-from scutils import log_init
 
 from excel.configs.default import DEFAULT_CONFIG
 
@@ -30,7 +29,6 @@ from excel.configs.default import DEFAULT_CONFIG
 #       INSTANCES
 # --------------------------------------
 try:
-    log_init()
     # load configurations
     config = Config.create(project_name="sc-excel-splitter", defaults=DEFAULT_CONFIG)
 except Exception as error:

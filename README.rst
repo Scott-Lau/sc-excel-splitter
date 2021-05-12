@@ -19,11 +19,12 @@ It is possible to install the tool with `pip`::
 Configuration
 -------------
 
-First, make sure /var/opt/sc directory exists, if not create this directory and make sure current user has the right
-to create files in this directory.
+Configuration files reading in this order, the first is the top most priority:
 
-You can copy `default.yml <https://github.com/Scott-Lau/sc-excel-splitter/blob/master/excel/tests/sample_config/default.yml>`_
-to /var/opt/sc/.sc-excel-splitter/production.yml to initialize the production configuration.
+#. production.xml in current directory,
+#. production.xml in <project_name> directory under User directory,
+#. production.xml in <project_name> directory under /var/opt/sc/ directory,
+#. default.xml in <project_name> directory under /var/opt/sc/ directory.
 
 The default configuration file looks like this::
 
