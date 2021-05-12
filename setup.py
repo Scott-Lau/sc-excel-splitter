@@ -76,8 +76,8 @@ setup(
     ],
     python_requires='>=3.6',
     install_requires=[
-        'sc-utilities>=0.0.2',
-        'sc-config>=0.0.5',
+        'sc-utilities>=0.0.3',
+        'sc-config>=0.0.6',
         'pandas>=1.2.4',
         'openpyxl>=3.0.7',
     ],
