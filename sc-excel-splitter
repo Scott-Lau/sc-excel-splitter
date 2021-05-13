@@ -27,10 +27,6 @@
 
 from sys import exit
 
-from scutils import log_init
-
-log_init()
-
 from excel.main import main
 
 exit(main())
