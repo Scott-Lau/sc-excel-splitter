@@ -59,7 +59,7 @@ class Splitter(metaclass=Singleton):
         if type(sheet_config_dict) is not dict:
             logging.getLogger(__name__).info("配置项 'excel.sheet_config' 配置错误")
             return 1
-        if len(sheet_config_dict) <= 1:
+        if len(sheet_config_dict) <= 0:
             logging.getLogger(__name__).info("配置项 'excel.sheet_config' 配置错误，缺少导出Sheet的配置")
             return 1
 

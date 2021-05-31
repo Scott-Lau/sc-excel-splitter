@@ -27,7 +27,7 @@ from scutils import log_init
 
 log_init()
 
-from excel.utils import config
+from .utils import config
 from .splitter import Splitter
 
 
