@@ -48,12 +48,6 @@ class Splitter(metaclass=Singleton):
         source_filename = os.path.basename(source_file_path)
         (filename, ext) = os.path.splitext(source_filename)
 
-        branch_list = config.get("excel.branch_list")
-        logging.getLogger(__name__).info("机构列表配置：{}".format(branch_list))
-        if type(branch_list) is not list:
-            logging.getLogger(__name__).info("配置项 'excel.branch_list' 配置错误")
-            return 1
-
         sheet_config_dict = config.get("excel.sheet_config")
         logging.getLogger(__name__).info("Sheet配置：{}".format(sheet_config_dict))
         if type(sheet_config_dict) is not dict:
@@ -63,28 +57,28 @@ class Splitter(metaclass=Singleton):
             logging.getLogger(__name__).info("配置项 'excel.sheet_config' 配置错误，缺少导出Sheet的配置")
             return 1
 
-        for branch in branch_list:
-            logging.getLogger(__name__).info("开始处理机构：{}".format(branch))
-            target_filename = os.path.join(target_directory, filename + "-" + branch + ext)
-            first = True
-            if first:
-                # 如果是第一个Sheet，首先删除已有文件
-                if os.path.exists(target_filename):
-                    os.remove(target_filename)
-                first = False
-            with pd.ExcelWriter(target_filename) as writer:
-                for sheet_name, sheet_config in sheet_config_dict.items():
-                    if "other_sheets" == sheet_name and type(sheet_config) == list:
-                        # 其他Sheet直接读取按原样输出
-                        for other_sheet in sheet_config:
-                            df = pd.read_excel(source_file_path, sheet_name=other_sheet)
-                            df.to_excel(writer, sheet_name=other_sheet, index=False)
-                        continue
-                    # 如果是需要拆分的Sheet
-                    logging.getLogger(__name__).info("开始处理Sheet：{}".format(sheet_name))
-                    df = pd.read_excel(source_file_path, sheet_name=sheet_name, header=sheet_config["header"])
-                    column_index = sheet_config["branch_column"]
-                    column_name = df.columns[column_index]
-                    sub_df = df[df[column_name] == branch]
-                    sub_df.to_excel(writer, sheet_name=sheet_name, index=False)
+        with pd.ExcelFile(source_file_path) as xls:
+            for sheet_name, sheet_config in sheet_config_dict.items():
+                if "other_sheets" == sheet_name and type(sheet_config) == list:
+                    # # 其他Sheet直接读取按原样输出
+                    # for other_sheet in sheet_config:
+                    #     df = pd.read_excel(xls, sheet_name=other_sheet)
+                    #     df.to_excel(writer, sheet_name=other_sheet, index=False)
+                    continue
+                # 如果是需要拆分的Sheet
+                logging.getLogger(__name__).info("开始处理Sheet：{}".format(sheet_name))
+                df = pd.read_excel(xls, sheet_name=sheet_name, header=sheet_config["header"])
+                column_index = sheet_config["split_column"]
+                column_name = df.columns[column_index]
+                grouped_df = df.groupby(column_name, dropna=False)
+                for data in grouped_df[column_name]:
+                    group_name = data[0]
+                    output_filename = "{}-{}.xlsx".format(filename, group_name)
+                    sub_group = grouped_df.get_group(group_name)
+                    sub_group.to_excel(
+                        output_filename,
+                        sheet_name=sheet_name,
+                        index=False,
+                    )
+
         return 0
