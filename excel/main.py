@@ -27,7 +27,6 @@ from scutils import log_init
 
 log_init()
 
-from .utils import config
 from .splitter import Splitter
 
 
@@ -37,12 +36,6 @@ class Runner(metaclass=Singleton):
         pass
 
     def run(self):
-        dev_mode = False
-        try:
-            dev_mode = config.get("dev.dev_mode")
-        except AttributeError:
-            pass
-        logging.getLogger(__name__).info('program is running in development mode: {}'.format(dev_mode))
         splitter = Splitter()
         return splitter.split()
 

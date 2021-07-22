@@ -27,7 +27,7 @@ import pandas as pd
 from scutils import Singleton
 from scutils.file_utils import ensure_dir
 
-from excel.utils import config
+from excel.utils import ConfigUtils
 
 
 class Splitter(metaclass=Singleton):
@@ -37,6 +37,7 @@ class Splitter(metaclass=Singleton):
 
     def split(self):
         # 源路径
+        config = ConfigUtils.get_config()
         source_file_path = config.get("excel.source_file_path")
         logging.getLogger(__name__).info("源文件路径：{}".format(source_file_path))
         # 输出目标路径
