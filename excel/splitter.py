@@ -74,11 +74,15 @@ class Splitter(metaclass=Singleton):
                 for data in grouped_df[column_name]:
                     group_name = data[0]
                     output_filename = "{}-{}.xlsx".format(filename, group_name)
-                    sub_group = grouped_df.get_group(group_name)
-                    sub_group.to_excel(
-                        output_filename,
-                        sheet_name=sheet_name,
-                        index=False,
-                    )
-
+                    # 如果文件已经存在，则采用追加的模式
+                    mode = 'a' if os.path.exists(output_filename) else 'w'
+                    # 如果Sheet已经存在则替换原有的Sheet
+                    replace_strategy = 'replace' if mode == 'a' else None
+                    with pd.ExcelWriter(output_filename, mode=mode, if_sheet_exists=replace_strategy) as writer:
+                        sub_group = grouped_df.get_group(group_name)
+                        sub_group.to_excel(
+                            writer,
+                            sheet_name=sheet_name,
+                            index=False,
+                        )
         return 0
