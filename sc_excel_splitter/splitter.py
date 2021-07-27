@@ -27,7 +27,7 @@ import pandas as pd
 from scutils import Singleton
 from scutils.file_utils import ensure_dir
 
-from excel.utils import ConfigUtils
+from sc_excel_splitter.utils import ConfigUtils
 
 
 class Splitter(metaclass=Singleton):

@@ -27,6 +27,6 @@
 
 from sys import exit
 
-from excel.main import main
+from sc_excel_splitter.main import main
 
 exit(main())

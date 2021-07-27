@@ -46,7 +46,7 @@ with open('README.rst', encoding="utf-8") as fd:
 
 setup(
     name='sc-excel-splitter',
-    version=get_version("excel/__init__.py"),
+    version=get_version("sc_excel_splitter/__init__.py"),
     url='https://github.com/Scott-Lau/sc-excel-splitter',
     packages=find_packages(),
     author='Scott Lau',
@@ -60,7 +60,7 @@ setup(
     ),
     entry_points={
         'console_scripts': [
-            'sc-excel-splitter=excel.main:main',
+            'sc-excel-splitter=sc_excel_splitter.main:main',
         ],
     },
     classifiers=[
@@ -82,7 +82,7 @@ setup(
         'openpyxl>=3.0.7',
     ],
     package_data={
-        'excel': ['tests/sample_config/*.yml'],
+        'sc_excel_splitter': ['tests/sample_config/*.yml'],
     },
     include_package_data=True,
 )
