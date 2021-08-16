@@ -21,8 +21,8 @@
 #  SOFTWARE.
 import logging
 
-from scconfig.config import Config
-from scutils import Singleton
+from sc_config.config import Config
+from sc_utilities import Singleton
 
 from .configs.default import DEFAULT_CONFIG
 

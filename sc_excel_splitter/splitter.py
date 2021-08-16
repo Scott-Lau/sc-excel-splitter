@@ -24,8 +24,8 @@ import logging
 import os
 
 import pandas as pd
-from scutils import Singleton
-from scutils.file_utils import ensure_dir
+from sc_utilities import Singleton
+from sc_utilities.file_utils import ensure_dir
 
 from sc_excel_splitter.utils import ConfigUtils
 

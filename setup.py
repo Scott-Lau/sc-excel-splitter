@@ -76,13 +76,13 @@ setup(
     ],
     python_requires='>=3.6',
     install_requires=[
-        'sc-utilities>=0.0.5',
-        'sc-config>=0.0.7',
+        'sc-utilities>=0.0.6',
+        'sc-config>=0.0.8',
         'pandas>=1.3.1',
         'openpyxl>=3.0.7',
     ],
     package_data={
-        'sc_excel_splitter': ['tests/sample_config/*.yml'],
+        'sc_excel_splitter': ['tests/sample_config/*'],
     },
     include_package_data=True,
 )
