@@ -58,6 +58,8 @@ class Splitter(metaclass=Singleton):
             logging.getLogger(__name__).info("配置项 'excel.sheet_config' 配置错误，缺少导出Sheet的配置")
             return 1
 
+        # 文件出现次数统计，第一次出现的时候删除原来的文件
+        file_appearance_count: dict = dict()
         with pd.ExcelFile(source_file_path) as xls:
             for sheet_name, sheet_config in sheet_config_dict.items():
                 if "other_sheets" == sheet_name and type(sheet_config) == list:
@@ -67,14 +69,21 @@ class Splitter(metaclass=Singleton):
                     #     df.to_excel(writer, sheet_name=other_sheet, index=False)
                     continue
                 # 如果是需要拆分的Sheet
-                logging.getLogger(__name__).info("开始处理Sheet：{}".format(sheet_name))
-                df = pd.read_excel(xls, sheet_name=sheet_name, header=sheet_config["header"])
+                logging.getLogger(__name__).info(f"开始处理Sheet：'{sheet_name}'")
+                try:
+                    df = pd.read_excel(xls, sheet_name=sheet_name, header=sheet_config["header"])
+                except Exception as e:
+                    logging.getLogger(__name__).error(f"处理Sheet'{sheet_name}'时报错：{e}")
+                    continue
                 column_index = sheet_config["split_column"]
                 column_name = df.columns[column_index]
                 grouped_df = df.groupby(column_name, dropna=False)
                 for data in grouped_df[column_name]:
                     group_name = data[0]
                     output_filename = "{}-{}.xlsx".format(filename, group_name)
+                    # 如果文件已经存在，第一次出现的时候删除原来的文件
+                    if os.path.exists(output_filename) and output_filename not in file_appearance_count:
+                        os.remove(output_filename)
                     # 如果文件已经存在，则采用追加的模式
                     mode = 'a' if os.path.exists(output_filename) else 'w'
                     # 如果Sheet已经存在则替换原有的Sheet
@@ -86,4 +95,5 @@ class Splitter(metaclass=Singleton):
                             sheet_name=sheet_name,
                             index=False,
                         )
+                        file_appearance_count[output_filename] = 1
         return 0
